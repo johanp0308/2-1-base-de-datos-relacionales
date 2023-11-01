@@ -13,11 +13,6 @@ CREATE TABLE Books(
     authorID INT NOT NULL,
     editorialID INT NOT NULL
 );
---Foreing Keys (Books)
-ALTER TABLE Books 
-MODIFY authorID INT NOT NULL CONSTRAINT FK_Author_Id FOREIGN KEY (authorID) REFERENCES Authors(id),
-MODIFY editorialID INT NOT NULL CONSTRAINT FK_Editorials_Id FOREIGN KEY (editorialID) REFERENCES Editorials(id);
----------------------
 
 DROP TABLE IF EXISTS cart_books;
 CREATE TABLE cart_books(
@@ -25,11 +20,6 @@ CREATE TABLE cart_books(
     cart_id INT NULL,
     amount INT NULL
 );
---Foreign Keys (cart_books)
-ALTER TABLE cart_books 
-MODIFY book_id INT NOT NULL CONSTRAINT FK_Books_Id FOREIGN KEY (book_id) REFERENCES Books(id),
-MODIFY cart_id INT NOT NULL CONSTRAINT FK_Cart_Id FOREIGN KEY (cart_id) REFERENCES Cart(Shopping_cart_ID);
-------------------------
 
 DROP TABLE IF EXISTS Editorials;
 CREATE TABLE Editorials(
@@ -46,10 +36,6 @@ CREATE TABLE Cart(
     Shopping_cart_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NULL
 );
---Foreign Key (Cart)
-ALTER TABLE Cart
-MODIFY customer_id INT NOT NULL CONSTRAINT FK_Customers_id FOREIGN KEY (customer_id) REFERENCES Customers(id);
------------------
 
 DROP TABLE IF EXISTS Stores;
 CREATE TABLE Stores(
@@ -57,8 +43,8 @@ CREATE TABLE Stores(
     address VARCHAR(50) NULL,
     phonenumber VARCHAR(16) NULL
 );
-ALTER TABLE 
-
+--------
+--------
 DROP TABLE IF EXISTS Customers;
 CREATE TABLE Customers(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -75,7 +61,8 @@ CREATE TABLE Authors(
     name VARCHAR(50) NULL,
     url TEXT NULL
 );
-
+------
+------
 DROP TABLE IF EXISTS Stock;
 CREATE TABLE Stock(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -84,3 +71,29 @@ CREATE TABLE Stock(
     store_id INT NULL
 );
 
+--Foreing Keys (Books)
+ALTER TABLE Books 
+MODIFY authorID INT NOT NULL CONSTRAINT FK_Author_Id FOREIGN KEY (authorID) REFERENCES Authors(id),
+MODIFY editorialID INT NOT NULL CONSTRAINT FK_Editorials_Id FOREIGN KEY (editorialID) REFERENCES Editorials(id);
+---------------------
+
+--Foreign Keys (cart_books)
+ALTER TABLE cart_books 
+MODIFY book_id INT NOT NULL CONSTRAINT FK_Books_Id FOREIGN KEY (book_id) REFERENCES Books(id),
+MODIFY cart_id INT NOT NULL CONSTRAINT FK_Cart_Id FOREIGN KEY (cart_id) REFERENCES Cart(Shopping_cart_ID);
+------------------------
+
+--Foreign Key (Cart)
+ALTER TABLE Cart
+MODIFY customer_id INT NOT NULL CONSTRAINT FK_Customers_id FOREIGN KEY (customer_id) REFERENCES Customers(id);
+-----------------
+
+--- Foreign Key (Customers)
+ALTER TABLE Customers 
+MODIFY store_id INT NOT NULL CONSTRAINT FK_Stores_Id FOREIGN KEY (store_id) REFERENCES Stores(id);
+
+-- Foreign Key (Stock)
+ALTER TABLE Stock 
+MODIFY store_id INT NOT NULL CONSTRAINT FK_Stores_Id FOREIGN KEY (store_id) REFERENCES Stores(id),
+MODIFY books_id INT NOT NULL CONSTRAINT FK_Book_Id FOREIGN KEY (books_id) REFERENCES Books(id)
+-------
