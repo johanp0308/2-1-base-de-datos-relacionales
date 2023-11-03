@@ -73,27 +73,27 @@ CREATE TABLE Stock(
 
 --Foreing Keys (Books)
 ALTER TABLE Books 
-MODIFY authorID INT NOT NULL CONSTRAINT FK_Author_Id FOREIGN KEY (authorID) REFERENCES Authors(id),
-MODIFY editorialID INT NOT NULL CONSTRAINT FK_Editorials_Id FOREIGN KEY (editorialID) REFERENCES Editorials(id);
+MODIFY authorID INT NOT NULL CONSTRAINT FK_Book_Author FOREIGN KEY (authorID) REFERENCES Authors(id),
+MODIFY editorialID INT NOT NULL CONSTRAINT FK_Books_Editorials FOREIGN KEY (editorialID) REFERENCES Editorials(id);
 ---------------------
 
 --Foreign Keys (cart_books)
 ALTER TABLE cart_books 
-MODIFY book_id INT NOT NULL CONSTRAINT FK_Books_Id FOREIGN KEY (book_id) REFERENCES Books(id),
-MODIFY cart_id INT NOT NULL CONSTRAINT FK_Cart_Id FOREIGN KEY (cart_id) REFERENCES Cart(Shopping_cart_ID);
+MODIFY book_id INT NOT NULL CONSTRAINT FK_cartBook_Books FOREIGN KEY (book_id) REFERENCES Books(id),
+MODIFY cart_id INT NOT NULL CONSTRAINT FK_cartBook_Cart FOREIGN KEY (cart_id) REFERENCES Cart(Shopping_cart_ID);
 ------------------------
 
 --Foreign Key (Cart)
 ALTER TABLE Cart
-MODIFY customer_id INT NOT NULL CONSTRAINT FK_Customers_id FOREIGN KEY (customer_id) REFERENCES Customers(id);
+MODIFY customer_id INT NOT NULL CONSTRAINT FK_Cart_Customers FOREIGN KEY (customer_id) REFERENCES Customers(id);
 -----------------
 
 --- Foreign Key (Customers)
 ALTER TABLE Customers 
-MODIFY store_id INT NOT NULL CONSTRAINT FK_Stores_Id FOREIGN KEY (store_id) REFERENCES Stores(id);
+MODIFY store_id INT NOT NULL CONSTRAINT FK_Customers_Stores FOREIGN KEY (store_id) REFERENCES Stores(id);
 
 -- Foreign Key (Stock)
 ALTER TABLE Stock 
-MODIFY store_id INT NOT NULL CONSTRAINT FK_Stores_Id FOREIGN KEY (store_id) REFERENCES Stores(id),
-MODIFY books_id INT NOT NULL CONSTRAINT FK_Book_Id FOREIGN KEY (books_id) REFERENCES Books(id)
+MODIFY store_id INT NOT NULL CONSTRAINT FK_Stock_Stores FOREIGN KEY (store_id) REFERENCES Stores(id),
+MODIFY books_id INT NOT NULL CONSTRAINT FK_Stock_Book FOREIGN KEY (books_id) REFERENCES Books(id)
 -------
